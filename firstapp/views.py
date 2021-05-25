@@ -24,9 +24,9 @@ img_height , img_width = 400,600
 #     tf_session = Session()
 #     with tf_session.as_default():
 
-#model = load_model('models/model_rec.h5')
+model = keras.models.load_model('model_rec.h5')
 
-model = load_model(os.path.join('models/','model_rec.h5'))
+#model = load_model(os.path.join('models/','model_rec.h5'))
 def Enhance(img, index, flag):
     if index == 0:
       return img
