@@ -26,7 +26,7 @@ img_height , img_width = 400,600
 
 #model = load_model('models/model_rec.h5')
 
-model = load_model(os.path.join('./models/','model_rec.h5'))
+model = load_model(os.path.join('models/','model_rec.h5'))
 def Enhance(img, index, flag):
     if index == 0:
       return img
