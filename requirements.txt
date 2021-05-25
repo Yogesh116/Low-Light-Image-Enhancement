@@ -2,6 +2,7 @@ distlib==0.3.1
 Django==2.0
 gunicorn==20.1.0
 imageio==2.9.0
+keras==2.4.3
 keras-tuner==1.0.1
 oauthlib==3.1.0
 PyJWT==1.7.1
