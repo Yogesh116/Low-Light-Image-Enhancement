@@ -16,6 +16,6 @@ webencodings==0.5.1
 whitenoise==5.2.0
 Pyrebase4==4.4.3
 tb-nightly==1.14.0a20190301
-tensorflow==2.0.0a0
+tensorflow-cpu==2.5.0
 termcolor==1.1.0
 tf-estimator-nightly==1.14.0.dev2019030115
