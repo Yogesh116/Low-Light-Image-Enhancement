@@ -15,4 +15,4 @@ tensorflow-cpu==2.5.0
 webencodings==0.5.1
 whitenoise==5.2.0
 Pyrebase4==4.4.3
-opencv-contrib-python==4.4.0.40
+opencv-contrib-python==4.4.0.46
