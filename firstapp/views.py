@@ -14,6 +14,7 @@ import numpy as np
 import base64
 from io import BytesIO
 import pyrebase
+import os 
 
 img_height , img_width = 400,600
 
@@ -22,8 +23,10 @@ img_height , img_width = 400,600
 # with model_graph.as_default():
 #     tf_session = Session()
 #     with tf_session.as_default():
-model = load_model('models/model_rec.h5')
 
+#model = load_model('models/model_rec.h5')
+
+model = load_model(os.path.join('./models/','model_rec.h5'))
 def Enhance(img, index, flag):
     if index == 0:
       return img
