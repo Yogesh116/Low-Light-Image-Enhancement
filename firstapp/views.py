@@ -11,7 +11,7 @@ import json
 # from tensorflow import Graph
 # from tensorflow.compat.v1 import Session
 import numpy as np
-import cv2
+#import cv2
 import base64
 from io import BytesIO
 import pyrebase
