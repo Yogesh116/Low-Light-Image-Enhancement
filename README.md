@@ -1,7 +1,21 @@
-# Low-Light-Image-Enhancement-Project 
-Due to low lighting circumstances, images recorded in outdoor scenes can be severely affected. Low dynamic range and excessive noise levels in these photos can influence the overall effectiveness of computer vision systems. Use low-light image enhancement to improve the visibility of an image to make computer vision algorithms more robust in low-light circumstances.
+# Low-Light-Image-Enhancement-Webapp-
+Images captured in outdoor scenes can be highly degraded due to poor lighting conditions. These images can have low dynamic ranges with high noise levels that affect the overall performance of computer vision algorithms. To make computer vision algorithms robust in low-light conditions, use low-light image enhancement to improve the visibility of an image.
 
-In this notebook, we are using many Deep neural network layers to enhance low-light images, extracting a parameter map the same size as the image.
+- We present a deep learning based method for low-light image enhancement. This
+problem is challenging due to the difficulty in handling various factors simultaneously
+including brightness, contrast, artifacts and noise.
+
+- To address this task, we propose the
+multi-branch low-light enhancement network (MBLLEN). The key idea is to extract rich
+features up to different levels, so that we can apply enhancement via multiple subnets
+and finally produce the output image via multi-branch fusion. 
+
+- To address this task, we propose the
+multi-branch low-light enhancement network (MBLLEN). The key idea is to extract rich
+features up to different levels, so that we can apply enhancement via multiple subnets
+and finally produce the output image via multi-branch fusion.
+
+
 
 ## Dataset
 We have used LOL Dataset and the Dataset Provided by MBLLEN 
@@ -9,45 +23,51 @@ We have used LOL Dataset and the Dataset Provided by MBLLEN
 - LOL Dataset : https://drive.google.com/file/d/157bjO1_cFuSd0HWDUuAmcHRJDVyWpOxB/view 
 - MBLLEN Dataset : https://drive.google.com/file/d/1U1hyvVktYEoK_3cdcbWNaJ1WDft2mLRl/view 
 
-# Dependecies
-numpy,<br>
-opencv<br>
-imageio<br>
-glob <br>
-matplotlib <br>
-scipy <br>
-tensorflow.keras.models.
+## Requirements ##
 
-# Deep Neural Network Model
-We employ a plain CNN of seven convolutional
-layers with symmetrical concatenation. Each layer
-consists of 32 convolutional kernels of size 3x3 and stride<br>
-1. Followed by the ReLU activation function. <br> 
-2. The last convolutional layer is followed by the sigmoid activation function which produce parameter map of pixel range [0:1].<br>
-3. We used the Adam optimizer and Mean Squarred Error loss function.
+- [x] python 3  
+- [x] Tensorflow 1.6.0
+- [x] Django  
+- [x] Keras 2.2.0
+- [x] HTML/CSS
+- [x] Opencv-python 3.4.2
+
+## Model 
+
+the proposed MBLLEN consists of three types of modules: the feature
+extraction module (FEM), the enhancement module (EM) and the fusion module (FM).
+
+- **FEM** It is a single stream network with 10 convolutional layers, each of which uses
+kernels of size 3 × 3, stride of 1 and ReLU nonlinearity, and there is no pooling operation.
+The input to the first layer is the low-light color image. The output of each layer is both the
+input to the next layer and also the input to the corresponding subnet of EM.
+
+- **EM** It contains multiple sub-nets, whose number equals to the number of layers in FEM.
+The input to a sub-net is the output of a certain layer in FEM, and the output is a color image
+with the same size of the original low-light image. Each sub-net has a symmetric structure to
+first apply convolutions and then deconvolutions. The first convolutional layer uses 8 kernels
+of size 3×3, stride 1 and ReLU nonlinearity. Then, there are three convolutional layers and
+three deconvolutional layers, using kernel size 5 × 5, stride 1 and ReLU nonlinearity, with
+kernel numbers of 16, 16, 16, 16, 8 and 3 respectively. Note that all the sub-nets are trained
+simultaneously but individually without sharing any learnt parameters.
+
+- **FM** It accepts the outputs of all EM sub-nets to produce the finally enhanced image.
+We concatenate all the outputs from EM in the color channel dimension and use a 1 × 1
+convolution kernel to merge them. This equals to the weighted sum with learnable weights.
+
+![NN-MBLLEN](https://user-images.githubusercontent.com/65397085/122346292-6a2ed500-cf66-11eb-9297-607ecd6ce496.jpg)
 
 
-# We converted this steps of iterations into recursive function.
-img: the low light image (**I**, **E**old) <br/>
-index: no of iterations <br/>
-flag: default = 1.
+## Performance on Real Lowlight Images
 
-# Iteration Wise Examples
->LOL Dataset Image.
+To obtain better enhancement result, we linearly amplify the output of the network to improve contrast. Please read the code to see other parameter settings. 
 
- ![README_17_1](https://user-images.githubusercontent.com/66743388/121814561-5269ff00-cc8f-11eb-8c89-6c46f6b33682.png)
+![ShubhamMehla](https://user-images.githubusercontent.com/65397085/122344998-fb9d4780-cf64-11eb-8a4e-1e8191be5e47.jpg)
 
-# Some Example
->After 12 iteration
- ![12](https://user-images.githubusercontent.com/66743388/121814224-804e4400-cc8d-11eb-9604-fc70e2917b36.png)
 
->After 8 iteration
- ![8](https://user-images.githubusercontent.com/66743388/121814475-edaea480-cc8e-11eb-9690-9c813c63b9f4.png)
+## Performance on MBLLEN Dataset
 
->After 7 iteration.
- 
- ![7](https://user-images.githubusercontent.com/66743388/121814616-a2e15c80-cc8f-11eb-8e3a-b657f98dd3b3.png)
-
+![mbllen-synthetic-dataset-result](https://user-images.githubusercontent.com/65397085/122345582-a31a7a00-cf65-11eb-9a85-db4bd9c13b8f.jpg)
 
 
 
